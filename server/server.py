@@ -63,7 +63,7 @@ class FFServer:
         if masterconf:
             masterport = masterconf.get('rootport')
             masterhost = masterconf.get('roothost')
-            self.master_remote = RemoteObject(servername)
+            self.master_remote = RemoteObject(servername, "master")
             addr = ('localhost',masterport) if not masterhost else (masterhost,masterport)
             self.master_remote.connect(addr)
             GlobalObject().masterremote = self.master_remote
@@ -87,7 +87,7 @@ class FFServer:
             
         for cnf in self.remoteportlist:
             rname = cnf.get('rootname')
-            self.remote[rname] = RemoteObject(self.servername)
+            self.remote[rname] = RemoteObject(self.servername, rname)
             
         if hasdb and dbconfig:
             log.msg(str(dbconfig))

@@ -13,7 +13,10 @@ class BilateralBroker(pb.Broker):
     
     def connectionLost(self, reason):
         clientID = self.transport.sessionno
-        log.msg("node [%d] lose"%clientID)
+        child = self.factory.root.childsmanager.getChildBYSessionId(clientID)
+        if child:
+            log.msg("node [%s] lose" % child.getName())
+            
         self.factory.root.dropChildSessionId(clientID)
         pb.Broker.connectionLost(self, reason)
         
@@ -22,7 +25,6 @@ class BilateralBroker(pb.Broker):
 class BilateralFactory(pb.PBServerFactory):
     
     protocol = BilateralBroker
-    
     
 
 class PBRoot(pb.Root):

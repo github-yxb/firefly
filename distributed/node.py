@@ -20,12 +20,13 @@ def callRemote(obj,funcName,*args,**kw):
 class RemoteObject(object):
     '''远程调用对象'''
     
-    def __init__(self,name):
+    def __init__(self,name, rname):
         '''初始化远程调用对象
         @param port: int 远程分布服的端口号
         @param rootaddr: 根节点服务器地址
         '''
         self._name = name
+        self._rname = rname
         self._factory = pb.PBClientFactory()
         self._reference = ProxyReference()
         self._addr = None
@@ -36,15 +37,15 @@ class RemoteObject(object):
         self._factory.clientConnectionMade = self.clientConnectionMade
 
     def clientConnectionLost(self, connector, reason, reconnecting=1):
-        log.err("clientConnectionLost: %s" % [str(reason), self._addr, reconnecting])
+        log.err("clientConnectionLost for %s: %s, %s, %s" % (self._rname, str(reason), self._addr, reconnecting))
         self.reconnect()
 
     def clientConnectionFailed(self, connector, reason):
-        log.err("clientConnectionFailed:%s" % [str(reason), self._addr])
+        log.err("clientConnectionFailed for %s :%s, %s" % (self._rname, str(reason), self._addr))
         self.reconnect()
 
     def clientConnectionMade(self, broker):
-        log.msg("clientConnectionMade")
+        log.msg("clientConnectionMade for ", self._rname)
         self.srclientConnectionMade(broker)
         self.takeProxy()
 
@@ -60,7 +61,6 @@ class RemoteObject(object):
         '''初始化远程调用对象'''
         self._addr = addr
         reactor.connectTCP(addr[0], addr[1], self._factory)
-        self.takeProxy()
         
     def reconnect(self):
         '''重新连接'''
@@ -73,6 +73,7 @@ class RemoteObject(object):
     def takeProxy(self):
         '''像远程服务端发送代理通道对象
         '''
+        log.msg("takeProxy ....")
         deferedRemote = self._factory.getRootObject()
         deferedRemote.addCallback(callRemote,'takeProxy',self._name,self._reference)
     
