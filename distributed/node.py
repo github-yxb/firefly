@@ -37,11 +37,11 @@ class RemoteObject(object):
         self._factory.clientConnectionMade = self.clientConnectionMade
 
     def clientConnectionLost(self, connector, reason, reconnecting=1):
-        log.err("clientConnectionLost for %s: %s, %s, %s" % (self._rname, str(reason), self._addr, reconnecting))
+        log.err("clientConnectionLost for %s: %s, %s" % (self._rname, self._addr, reconnecting))
         self.reconnect()
 
     def clientConnectionFailed(self, connector, reason):
-        log.err("clientConnectionFailed for %s :%s, %s" % (self._rname, str(reason), self._addr))
+        log.err("clientConnectionFailed for %s :%s" % (self._rname, self._addr))
         self.reconnect()
 
     def clientConnectionMade(self, broker):
@@ -73,7 +73,6 @@ class RemoteObject(object):
     def takeProxy(self):
         '''像远程服务端发送代理通道对象
         '''
-        log.msg("takeProxy ....")
         deferedRemote = self._factory.getRootObject()
         deferedRemote.addCallback(callRemote,'takeProxy',self._name,self._reference)
     
