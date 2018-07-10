@@ -21,6 +21,7 @@ def _doChildConnect(name,transport):
         remote_host = remote_list.get("host","")
         remote_name_host = remote_list.get("root_list","")
         if name in remote_name_host:
+            log.msg("notice %s to connect %s:%s" % (servername, name, child_host))
             GlobalObject().root.callChild(servername,"remote_connect",name,child_host)
     #查看当前是否有可供连接的root节点
     master_node_list = GlobalObject().remote_map.keys()
@@ -33,6 +34,7 @@ def _doChildLostConnect(childId):
     """
     """
     try:
+        log.msg("ChildLostConnect:%s" % childId)
         del GlobalObject().remote_map[childId]
     except Exception,e:
         log.msg(str(e))
