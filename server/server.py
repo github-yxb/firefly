@@ -17,7 +17,7 @@ from twisted.python import log
 from twisted.internet import reactor
 from firefly.utils import services
 import os,sys,affinity
-
+from twisted.python import log
 reactor = reactor
 
 def serverStop():
@@ -117,6 +117,7 @@ class FFServer:
     def remote_connect(self, rname, rhost):
         """
         """
+        log.msg("remote_connect be called.%s, %s" % (rname, rhost))
         for cnf in self.remoteportlist:
             _rname = cnf.get('rootname')
             if rname == _rname:

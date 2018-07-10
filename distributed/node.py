@@ -60,6 +60,7 @@ class RemoteObject(object):
     def connect(self,addr):
         '''初始化远程调用对象'''
         self._addr = addr
+        log.msg("node %s will connect %s, addr:%s" % (self._name, self._rname, self._addr))
         reactor.connectTCP(addr[0], addr[1], self._factory)
         
     def reconnect(self):
