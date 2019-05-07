@@ -6,8 +6,8 @@ Created on 2013-8-14
 '''
 from twisted.python import log
 from twisted.spread import pb
-from manager import ChildsManager
-from child import Child
+from .manager import ChildsManager
+from .child import Child
 
 class BilateralBroker(pb.Broker):
     
@@ -30,7 +30,7 @@ class BilateralFactory(pb.PBServerFactory):
 class PBRoot(pb.Root):
     '''PB 协议'''
     
-    def __init__(self,dnsmanager = ChildsManager()):
+    def __init__(self, dnsmanager = ChildsManager()):
         '''初始化根节点
         '''
         self.service = None

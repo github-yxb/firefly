@@ -37,7 +37,7 @@ class DelayRequest(Request):
         """
         try:
             body = resrc.render(self)
-        except UnsupportedMethod, e:
+        except UnsupportedMethod as e:
             allowedMethods = e.allowedMethods
             if (self.method == "HEAD") and ("GET" in allowedMethods):
                 # We must support HEAD (RFC 2616, 5.1.1).  If the

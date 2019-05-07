@@ -64,7 +64,7 @@ class DataPackProtoc:
         '''
         try:
             ud = struct.unpack('!sssss3I',dpack)
-        except DataPackError,de:
+        except Exception as e:
             log.err(de)
             return {'result':False,'command':0,'length':0}
         HEAD_0 = ord(ud[0])
@@ -75,9 +75,9 @@ class DataPackProtoc:
         serverVersion = ud[5]
         length = ud[6]-4
         command = ud[7]
-        if HEAD_0 <>self.HEAD_0 or HEAD_1<>self.HEAD_1 or\
-             HEAD_2<>self.HEAD_2 or HEAD_3<>self.HEAD_3 or\
-              protoVersion<>self.protoVersion or serverVersion<>self.serverVersion:
+        if HEAD_0 != self.HEAD_0 or HEAD_1 != self.HEAD_1 or\
+             HEAD_2 != self.HEAD_2 or HEAD_3 != self.HEAD_3 or\
+              protoVersion != self.protoVersion or serverVersion != self.serverVersion:
             return {'result':False,'command':0,'length':0}
         return {'result':True,'command':command,'length':length}
         

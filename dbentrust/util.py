@@ -7,7 +7,7 @@ Created on 2013-5-8
 
 from dbpool import dbpool
 from MySQLdb.cursors import DictCursor
-from numbers import Number
+from .numbers import Number
 from twisted.python import log
 
 
@@ -127,7 +127,7 @@ def DeleteFromDB(tablename,props):
     try:
         count = cursor.execute(sql)
         conn.commit()
-    except Exception,e:
+    except Exception as e:
         log.err(e)
         log.err(sql)
     cursor.close()
@@ -144,7 +144,7 @@ def InsertIntoDB(tablename,data):
     try:
         count = cursor.execute(sql)
         conn.commit()
-    except Exception,e:
+    except Exception as e:
         log.err(e)
         log.err(sql)
     cursor.close()
@@ -161,7 +161,7 @@ def UpdateWithDict(tablename,props,prere):
     try:
         count = cursor.execute(sql)
         conn.commit()
-    except Exception,e:
+    except Exception as e:
         log.err(e)
         log.err(sql)
     cursor.close()

@@ -5,14 +5,14 @@ Created on 2013-8-6
 @author: lan (www.9miao.com)
 '''
 from twisted.python import log
-from zope.interface import implements
+from zope.interface import implementer
 import datetime
 
 
+@implementer(log.ILogObserver)
 class loogoo:
     '''日志处理
     '''
-    implements(log.ILogObserver)
     
     def __init__(self,logpath):
         '''配置日志路径

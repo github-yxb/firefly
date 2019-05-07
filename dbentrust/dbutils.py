@@ -605,7 +605,7 @@ class SQLProducer:
         # make sure all rows have same keys.
         for v in values:
             if v.keys() != keys:
-                raise ValueError, 'Bad data'
+                raise ValueError('Bad data')
 
         sql_query = SQLQuery('INSERT INTO %s (%s) VALUES ' % (tablename, ', '.join(keys)))
 
