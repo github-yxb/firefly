@@ -17,7 +17,7 @@ class loogoo:
     def __init__(self,logpath):
         '''配置日志路径
         '''
-        self.file = file(logpath, 'w')
+        self.file = open(logpath, 'w')
         
     def __call__(self, eventDict):
         '''日志处理
