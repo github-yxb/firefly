@@ -88,7 +88,7 @@ class DelayRequest(Request):
 
         if body == NOT_DONE_YET:
             return
-        if not isinstance(body, defer.Deferred) and type(body) is not types.StringType:
+        if not isinstance(body, defer.Deferred) and type(body) is not str:
             body = resource.ErrorPage(
                 http.INTERNAL_SERVER_ERROR,
                 "Request did not return a string",
