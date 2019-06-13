@@ -70,6 +70,7 @@ class webserviceHandle:
         path_list = [path for path in path_list if path]
         patn_len = len(path_list)
         for index, path in enumerate(path_list):
+            path = bytes(path, encoding = "utf8")
             if index == 0:
                 temp_res = GlobalObject().webroot
             if index == patn_len - 1:
